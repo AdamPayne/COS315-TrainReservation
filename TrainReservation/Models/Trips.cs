@@ -12,7 +12,7 @@ namespace TrainReservation.Models
     {
         public int TripID { get; set; }
         public string Departure { get; set; }
-       [ Display(Name = "Departure Time")]
+        [ Display(Name = "Departure Time")]
         public DateTime Departure_Time { get; set; }
         public string Destination { get; set; }
         [Display(Name = "Arrival Time")]

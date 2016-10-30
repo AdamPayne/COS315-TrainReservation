@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - AUBS Lines</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -22,9 +22,17 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && User.IsInRole("admin"))
-                    {<li>@Html.ActionLink("Edit Trips", "Index", "Trips")</li>}
+                    {
+                        <li>@Html.ActionLink("Edit Trips", "Index", "Trips")</li>
+                    }
                     else
-                    {<li>@Html.ActionLink("View Trips", "Index", "Trips")</li>}
+                    {
+                    <li>@Html.ActionLink("View Trips", "Index", "Trips")</li>
+                    }
+                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                    <li>@Html.ActionLink("View Bookings", "Index", "Bookings")</li>
+                    }
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -37,7 +45,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - AUBS Lines</p>
         </footer>
     </div>
 

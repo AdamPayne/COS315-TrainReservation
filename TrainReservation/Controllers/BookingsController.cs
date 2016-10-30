@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrainReservationDBContext;
+using Microsoft.AspNet.Identity;
 
 namespace TrainReservation.Models
 {
@@ -17,7 +18,8 @@ namespace TrainReservation.Models
         // GET: Bookings
         public ActionResult Index()
         {
-            return View(db.Bookings.ToList());
+            string userId = User.Identity.GetUserId();
+            return View(db.Bookings.Where(booking => booking.UserId == userId).ToList());
         }
 
         // GET: Bookings/Details/5
