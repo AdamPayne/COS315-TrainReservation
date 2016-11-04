@@ -147,6 +147,9 @@ namespace TrainReservation.Controllers
             Bookings booking = new Bookings();
             booking.TripID = (int)id;
             booking.UserId = sender;
+
+            //booking.SeatId = 14;
+
             db.Bookings.Add(booking);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -48,7 +48,7 @@ namespace TrainReservation.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookingID,TripID,UserId,Number_of_Seats")] Bookings bookings)
+        public ActionResult Create([Bind(Include = "BookingID,TripID,UserId,SeatId")] Bookings bookings)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace TrainReservation.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookingID,TripID,UserId,Number_of_Seats")] Bookings bookings)
+        public ActionResult Edit([Bind(Include = "BookingID,TripID,UserId,SeatId")] Bookings bookings)
         {
             if (ModelState.IsValid)
             {
