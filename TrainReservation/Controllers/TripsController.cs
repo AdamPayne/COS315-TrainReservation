@@ -119,37 +119,55 @@ namespace TrainReservation.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Book(int? id, string sender)
+        Bookings get_data_from(int id, string sender)
         {
-            if (id == null)
+            Bookings booking = new Bookings();
+            booking.TripID = id;
+            booking.UserId = "";
+            int j = 0;
+            System.Diagnostics.Debug.WriteLine(sender);
+            System.Diagnostics.Debug.WriteLine("^^^^^^^^^^^^^^^^^^^^");
+
+            for (; (j < sender.Length) && (sender[j] != '#') ; j++)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+           //     System.Diagnostics.Debug.WriteLine(j);
+                booking.UserId += sender[j];
             }
+            string tmp = "";
+            for (; j < sender.Length; j++)
+                tmp += sender[j];
+            if (tmp == "") tmp = "-1";
+            booking.SeatId = Int32.Parse(tmp);
+            return booking;
+        }
+
+        // Trips/Book/3
+        public ActionResult Book(int id,  string sender)
+        {
+            System.Diagnostics.Debug.WriteLine("Book Called");
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             Trip trip = db.Trips.Find(id);
             if (trip == null)
             {
                 return HttpNotFound();
             }
 
-
-            Bookings booking = new Bookings();
-
-            booking.TripID = (int)id;
-            booking.UserId = sender;
+            Bookings booking = get_data_from(id, sender);
             return View(booking);
         }
 
         // POST: Trips/Delete/5
         [HttpPost, ActionName("Book")]
         [ValidateAntiForgeryToken]
-        public ActionResult BookingConfirmed(int?id, string sender)
+        public ActionResult BookingConfirmed(int id, string sender, int SeatId = -1)
         {
-            Bookings booking = new Bookings();
-            booking.TripID = (int)id;
-            booking.UserId = sender;
+            System.Diagnostics.Debug.WriteLine("BookingConfirmed Called");
+            System.Diagnostics.Debug.WriteLine(SeatId);
 
-            //booking.SeatId = 14;
-
+            Bookings booking = get_data_from(id, sender);
             db.Bookings.Add(booking);
             db.SaveChanges();
             return RedirectToAction("Index");

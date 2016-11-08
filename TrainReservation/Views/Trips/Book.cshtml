@@ -16,8 +16,26 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
+
+            int seatNo = 444;
+            string sender_aggregate = HttpContext.Current.User.Identity.GetUserId() + "#" + seatNo.ToString();
+
+            System.Diagnostics.Debug.WriteLine(sender_aggregate);
+            System.Diagnostics.Debug.WriteLine("--------------------------");
+
+            
             <div class="form-actions no-color">
-                <button onclick="@Url.Action("BookingConfirmed" , "Confirm", new { id = Model.TripID, sender = HttpContext.Current.User.Identity.GetUserId() })">Confirm</button> |
+                
+                <button onclick="@Html.Raw(Url.Action("BookingConfirmed" ,
+                                "Confirm",
+                                new
+                                {
+                                    id = Model.TripID,
+                                    sender = HttpContext.Current.User.Identity.GetUserId(),
+                                    SeatId = 42
+                                }
+                                ))">Confirm</button> |
+                
                 @Html.ActionLink("Back to List", "Index")
             </div>
         }
